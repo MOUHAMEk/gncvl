@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de Calcul et Prédimensionnement</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: url('/mnt/data/image.png') no-repeat center center/cover;
+            height: 500px;
+            color: #0c0b0b;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3em;
+            font-family: 'Georgia', serif;
+        }
+
+        header p {
+            font-size: 1.5em;
+            font-family: 'Georgia', serif;
+            margin-top: 0.5em;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding: 1em 0;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 1em;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            padding: 2em;
+            text-align: center;
+            color: #000;
+        }
+
+        .content h2 {
+            font-family: 'Georgia', serif;
+            color: #004080;
+        }
+
+        .content p {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #000;
+        }
+
+        .content ul {
+            font-family: 'Georgia', serif;
+            list-style: square;
+            padding-left: 1.5em;
+            text-align: left;
+            display: inline-block;
+            color: #000;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .form-group {
+            margin: 1em 0;
+            text-align: center;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 80%;
+            padding: 0.5em;
+            margin-bottom: 0.5em;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .result {
+            margin-top: 2em;
+            padding: 1em;
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .form-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2em;
+            position: relative;
+            flex-wrap: wrap;
+        }
+
+        .form-section-main {
+            width: 100%;
+            max-width: 65%;
+        }
+
+        .form-section-secondary {
+            width: 100%;
+            max-width: 30%;
+        }
+
+        .styled-box {
+            background-color: #fff;
+            padding: 1em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1em;
+            text-align: center;
+        }
+
+        .styled-box h3 {
+            color: #004080;
+            margin-bottom: 1em;
+        }
+
+        .components-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1em;
+        }
+
+        .components-list label {
+            flex: 1 1 30%;
+            display: flex;
+            align-items: center;
+            margin: 0.5em;
+            background-color: #f4f4f4;
+            padding: 0.5em;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .components-list input {
+            margin-right: 0.5em;
+        }
+
+        footer {
+            background-color: #004080;
+            color: white;
+            text-align: center;
+            padding: 1em;
+            position: relative;
+            width: 100%;
+            margin-top: 2em;
+        }
+
+        .contact-info {
+            margin-top: 2em;
+            text-align: left;
+            display: inline-block;
+            background-color: #f4f4f4;
+            padding: 1em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info h2 {
+            color: #004080;
+        }
+
+        .contact-info p {
+            margin: 0.5em 0;
+            color: #000;
+        }
+
+        .contact-info i {
+            color: #004080;
+            margin-right: 0.5em;
+        }
+
+        .btn {
+            background-color: #004080;
+            color: white;
+            padding: 0.5em 1em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1em;
+        }
+
+        .btn:hover {
+            background-color: #003060;
+        }
+
+        .not-available {
+            margin-top: 2em;
+            padding: 2em;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            color: #000;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .styled-link {
+            background-color: #fff;
+            padding: 1em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 2em;
+            text-align: center;
+            color: #004080;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                height: 300px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            header p {
+                font-size: 1.2em;
+            }
+
+            nav {
+                flex-direction: column;
+                padding: 0.5em 0;
+            }
+
+            nav a {
+                margin: 0.5em 0;
+            }
+
+            .form-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form-section-main,
+            .form-section-secondary {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body onload="showSection('home')">
+    <header>
+        <nav>
+            <a onclick="showSection('home')">Accueil</a>
+            <a onclick="showSection('beam-calculation')">Prédimensionnement des Poutres</a>
+            <a onclick="showSection('wall-load')">Charges des Murs</a>
+            <a onclick="showSection('floor-load')">Charges des Planchers</a>
+            <a onclick="showSection('elements-dimension')">Dimensionnement des Éléments</a>
+            <a onclick="showSection('devis')">Devis</a>
+        </nav>
+        <h1>Calcul et Prédimensionnement des Éléments en Béton Armé</h1>
+        <p>Nous offrons des outils avancés pour le calcul et le prédimensionnement des structures en béton armé.</p>
+    </header>
+
+    <div id="home" class="content section">
+        <h2>Présentation du Site</h2>
+        <p>Bienvenue sur notre site dédié aux professionnels et étudiants en génie civil. Notre plateforme offre une solution complète pour le calcul et le prédimensionnement des éléments en béton armé. Que vous soyez ingénieur, architecte ou étudiant, vous trouverez ici des outils pratiques et efficaces pour:</p>
+        <ul>
+            <li>Prédimensionner les poutres en béton armé avec précision.</li>
+            <li>Calculer les charges des murs et des planchers de manière fiable.</li>
+            <li>Dimensionner divers éléments structurels selon les normes en vigueur.</li>
+            <li>Générer des devis détaillés pour vos projets de construction.</li>
+        </ul>
+    </div>
+
+    <div id="beam-calculation" class="content section hidden">
+        <h2>Prédimensionnement des Poutres</h2>
+        <div class="form-group">
+            <label for="beam-length">Longueur de la Poutre (en mètres):</label>
+            <input type="number" id="beam-length" required>
+        </div>
+        <div class="form-group">
+            <label for="beam-load">Charge:</label>
+            <select id="beam-load" required>
+                <option value="charge">Chargé</option>
+                <option value="peu_charge">Peu Chargé</option>
+                <option value="tres_charge">Très Chargé</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="beam-width">Largeur de la Poutre (b en mètres):</label>
+            <input type="number" id="beam-width" required>
+        </div>
+        <button class="btn" onclick="calculateBeam()">Calculer</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <div id="wall-load" class="content section hidden">
+        <h2>Charges des Murs</h2>
+        <div class="form-group">
+            <label for="wall-type">Type de Mur:</label>
+            <select id="wall-type" required>
+                <option value="moellons">Maçonnerie en moellons</option>
+                <option value="brique_pleins">Brique pleins</option>
+                <option value="brique_perfores">Brique perforés</option>
+                <option value="brique_creuse">Brique creuse</option>
+                <option value="bloc_beton">Bloc de béton</option>
+                <option value="pierre_taille">Pierre de taille</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="wall-thickness">Épaisseur du Mur (en mètres):</label>
+            <input type="number" id="wall-thickness" required>
+        </div>
+        <div class="form-group">
+            <label for="wall-height">Hauteur du Mur (en mètres):</label>
+            <input type="number" id="wall-height" required>
+        </div>
+        <button class="btn" onclick="calculateWallLoad()">Calculer</button>
+        <div id="wall-result" class="result"></div>
+    </div>
+
+    <div id="floor-load" class="content section hidden">
+        <h2>Charges des Planchers</h2>
+        <div class="form-section">
+            <div class="form-section-main">
+                <div class="styled-box">
+                    <h3>Charge Permanente (G)</h3>
+                    <div class="form-group">
+                        <label for="floor-type">Type de Plancher:</label>
+                        <select id="floor-type" onchange="showFloorOptions()" required>
+                            <option value="dalle_pleine">Dalle pleine</option>
+                            <option value="corps_creux">Corps creux</option>
+                        </select>
+                    </div>
+                    <div id="solid-slab-options" class="hidden styled-box">
+                        <div class="form-group">
+                            <label for="solid-slab-thickness">Épaisseur de la Dalle (en mètres):</label>
+                            <input type="number" id="solid-slab-thickness">
+                        </div>
+                    </div>
+                    <div id="hollow-core-options" class="hidden styled-box">
+                        <div class="form-group">
+                            <label for="hollow-core-type">Type de Corps Creux:</label>
+                            <select id="hollow-core-type">
+                                <option value="12+4">12+4</option>
+                                <option value="16+4">16+4</option>
+                                <option value="20+4">20+4</option>
+                                <option value="25+5">25+5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group styled-box">
+                        <label>Composants Additionnels:</label>
+                        <div class="components-list">
+                            <label><input type="checkbox" name="additional-components" value="0.42"> Étanchéité multi couche (0.42 kN/m²)</label>
+                            <label><input type="checkbox" name="additional-components" value="0.2"> Enduit plâtre (0.2 kN/m²)</label>
+                            <label><input type="checkbox" name="additional-components" value="0.3"> Lit de sable (0.3 kN/m²)</label>
+                            <label><input type="checkbox" name="additional-components" value="0.5"> Carrelage mince (0.5 kN/m²)</label>
+                            <label><input type="checkbox" name="additional-components" value="1"> Dallage céramique (1 kN/m²)</label>
+                            <label><input type="checkbox" name="additional-components" value="0.2"> Carrelage ou dallage coulé (0.2 kN/m²)</label>
+                            <label><input type="checkbox" name="additional-components" value="0.5"> Chape flottante en asphalte (0.5 kN/m²)</label>
+                            <label><input type="checkbox" name="additional-components" value="0.5"> Protection de l'étanchéité (0.5 kN/m²)</label>
+                            <label><input type="checkbox" name="additional-components" value="0.2"> Gravillon pour protection de l'étanchéité (0.2 kN/m²)</label>
+                            <label><input type="checkbox" name="additional-components" value="0.5"> Asphalte coulé en 0.5 cm (0.5 kN/m²)</label>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="calculateFloorLoad()">Calculer</button>
+                    <div id="floor-result" class="result"></div>
+                </div>
+            </div>
+            <div class="form-section-secondary">
+                <div class="styled-box">
+                    <h3>Charge d'Exploitation (Q)</h3>
+                    <div class="form-group">
+                        <label for="floor-level">Niveau:</label>
+                        <select id="floor-level" onchange="updateTerraceOptions()" required>
+                            <option value="etage">Étage</option>
+                            <option value="terrasse">Terrasse</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="terrace-options" style="display:none;">
+                        <label for="terrasse-accessible">Terrasse:</label>
+                        <select id="terrasse-accessible" required>
+                            <option value="non_accessible">Non accessible</option>
+                            <option value="accessible">Accessible</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="usage-options">
+                        <label for="floor-usage">Usage:</label>
+                        <select id="floor-usage" required>
+                            <option value="hebergement_chambres">Hébergement en chambres</option>
+                            <option value="hebergement_collectif">Hébergement collectif</option>
+                            <option value="restaurants_cafes_cantines">Salles de restaurants, cafés, cantines</option>
+                            <option value="bureaux_proprement_dits">Bureaux proprement dits</option>
+                            <option value="salles_reunion_travail">Salles de réunion avec tables de travail</option>
+                            <option value="halles_divers">Halles divers (gares, etc.)</option>
+                            <option value="salles_exposition_moins_50">Salles d'exposition : de moins de 50 m²</option>
+                            <option value="salles_exposition_50_plus">Salles d'exposition : de 50 m² ou plus</option>
+                            <option value="salles_reunion_assistance_debout">Salles de réunion et lieux de culte avec assistance debout</option>
+                            <option value="salles_tribunes_places_debout">Salles de tribunes des lieux de spectacles et de sport avec places debout</option>
+                            <option value="salles_theatre_conference">Salles de théâtre, salles de conférence, amphithéâtre, tribunes et autres lieux</option>
+                            <option value="cuisines_collectivites">Cuisines des collectivités</option>
+                            <option value="salles_lecture_bibliotheques">Salles de lecture des bibliothèques</option>
+                            <option value="salles_danse">Salles de danse</option>
+                            <option value="boutiques_annexes">Boutiques et annexes</option>
+                            <option value="garages_parcs_stationnement">Garages et parcs de stationnement</option>
+                            <option value="logement_combles">Logement y compris combles aménageables</option>
+                            <option value="balcons">Balcons</option>
+                            <option value="escaliers_hall_entree">Escaliers à l’exclusion des marches isolées, hall d’entrée</option>
+                            <option value="combles_non_amenageables_plancher">Combles non aménageables avec plancher</option>
+                            <option value="combles_non_amenageables_sans_plancher">Combles non aménageables sans plancher</option>
+                            <option value="entretien_element_structure">Partie accessible pour l’entretien 1 KN concentré</option>
+                            <option value="grenier">Grenier proprement dits</option>
+                            <option value="etages_caves">Etages des caves</option>
+                            <option value="bureaux_paysagers">Bureaux paysagers</option>
+                            <option value="circulations_escaliers">Circulations et escaliers</option>
+                            <option value="halls_reception">Halls de réception</option>
+                            <option value="halls_guichet">Halls à guichet</option>
+                            <option value="salles_projection">Salles de projection et de conférence</option>
+                            <option value="cantines">Cantines</option>
+                            <option value="salles_reunion_tables">Salles de réunion avec tables</option>
+                            <option value="zone_depots">Zone de dépôts</option>
+                            <option value="salles_ordinateurs">Salles d’ordinateurs et de reprographie</option>
+                            <option value="salles_classe">Salles de classe</option>
+                            <option value="amphitheatres">Amphithéâtres</option>
+                            <option value="ateliers_laboratoires">Ateliers, laboratoires</option>
+                            <option value="circulations_salles_reunion">Circulations, salles de réunion</option>
+                            <option value="bibliotheques">Bibliothèques</option>
+                            <option value="polyvalentes">Surfaces de regroupement d’abri, de détente, et de jeu, salles polyvalentes</option>
+                            <option value="dortoir_collectif">Dortoir collectif</option>
+                            <option value="hebergement_individuel">Hébergement individuel</option>
+                            <option value="depots_lingerie">Dépôts, lingerie</option>
+                            <option value="locaux_hebergement_chambre">Locaux hébergement chambre</option>
+                            <option value="locaux_hebergement_circulations">Locaux hébergement circulations internes</option>
+                            <option value="salle_operations_platre">Salle d’opérations, salles de plâtre</option>
+                            <option value="salle_travail_obstetrique">Salle de travail (Obstétrique)</option>
+                            <option value="halls">Halls</option>
+                            <option value="circulations_generales">Circulations générales</option>
+                            <option value="bureaux">Bureaux</option>
+                            <option value="postes_personnel_soins">Postes de personnel et de soins</option>
+                            <option value="salles_cours">Salles de cours</option>
+                            <option value="salles_reunion_restaurant">Salles de réunion, de conférences et de restauration générale</option>
+                            <option value="locaux_surface_inferieure_50">Local de surface inférieure à 50m²</option>
+                            <option value="locaux_surface_superieure_100">Local de surface supérieure à 100m²</option>
+                            <option value="sanitaires">Sanitaires</option>
+                            <option value="cuisines">Cuisines</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="calculateLiveLoad()">Calculer</button>
+                    <div id="live-load-result" class="result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="elements-dimension" class="content section hidden">
+        <div class="not-available">
+            Cette page n'est pas encore traitée.
+        </div>
+    </div>
+
+    <div id="devis" class="content section hidden">
+        <h2>Devis</h2>
+        <p>Entrez le lien pour faire le devis :</p>
+        <a href="https://docs.google.com/spreadsheets/d/1-J2PU0EPh8MqutAGBA7lHxb63CTS7StP/edit?usp=drive_link&ouid=109331153210171152425&rtpof=true&sd=true" download class="styled-link">Télécharger le fichier Excel</a>
+    </div>
+
+    <footer>
+        <div class="contact-info">
+            <h2>Contactez-nous</h2>
+            <p><i class="fas fa-envelope"></i> Email: medbahnaji44@gmail.com</p>
+            <p><i class="fas fa-phone"></i> Téléphone: 47309149</p>
+            <p><i class="fas fa-mobile-alt"></i> WhatsApp: 0541882219</p>
+        </div>
+        <p>Powered by Med Ahmed Sidi</p>
+    </footer>
+
+    <script>
+        function showSection(section) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(section).classList.remove('hidden');
+        }
+
+        function roundToNearest(value) {
+            const remainder = value % 0.05;
+            return remainder < 0.025 ? value - remainder : value - remainder + 0.05;
+        }
+
+        function calculateBeam() {
+            const length = parseFloat(document.getElementById('beam-length').value);
+            const load = document.getElementById('beam-load').value;
+            const width = parseFloat(document.getElementById('beam-width').value);
+            let factor;
+
+            if (load === 'tres_charge') {
+                factor = 10;
+            } else if (load === 'peu_charge') {
+                factor = 15;
+            } else if (load === 'charge') {
+                factor = 13;
+            } else {
+                factor = 1;
+            }
+
+            const height = roundToNearest(length / factor);
+            const roundedHeight = Math.round(height * 100);
+
+            document.getElementById('result').innerText = `Votre poutre est de dimensions : ${width}x${roundedHeight}`;
+        }
+
+        function calculateWallLoad() {
+            const typeValues = {
+                'moellons': 23,
+                'brique_pleins': 19,
+                'brique_perfores': 13,
+                'brique_creuse': 9,
+                'bloc_beton': 21,
+                'pierre_taille': 27
+            };
+
+            const type = document.getElementById('wall-type').value;
+            const thickness = parseFloat(document.getElementById('wall-thickness').value);
+            const height = parseFloat(document.getElementById('wall-height').value);
+            const typeValue = typeValues[type];
+
+            const load = typeValue * thickness * height;
+            document.getElementById('wall-result').innerText = `La charge sur ce mur est de : ${load.toFixed(2)} kN/m²`;
+        }
+
+        function showFloorOptions() {
+            const type = document.getElementById('floor-type').value;
+            document.getElementById('solid-slab-options').style.display = type === 'dalle_pleine' ? 'block' : 'none';
+            document.getElementById('hollow-core-options').style.display = type === 'corps_creux' ? 'block' : 'none';
+        }
+
+        function updateTerraceOptions() {
+            const level = document.getElementById('floor-level').value;
+            document.getElementById('terrace-options').style.display = level === 'terrasse' ? 'block' : 'none';
+            document.getElementById('usage-options').style.display = level === 'etage' ? 'block' : 'none';
+        }
+
+        function calculateFloorLoad() {
+            const typeValues = {
+                'dalle_pleine': 25,
+                '12+4': 2.6,
+                '16+4': 2.85,
+                '20+4': 3.3,
+                '25+5': 4
+            };
+
+            const type = document.getElementById('floor-type').value;
+            let load = 0;
+
+            if (type === 'dalle_pleine') {
+                const thickness = parseFloat(document.getElementById('solid-slab-thickness').value);
+                load = typeValues[type] * thickness;
+
+                document.querySelectorAll('input[name="additional-components"]:checked').forEach(component => {
+                    load += parseFloat(component.value);
+                });
+
+            } else {
+                const hollowCoreType = document.getElementById('hollow-core-type').value;
+                load = typeValues[hollowCoreType];
+
+                document.querySelectorAll('input[name="additional-components"]:checked').forEach(component => {
+                    load += parseFloat(component.value);
+                });
+            }
+
+            document.getElementById('floor-result').innerText = `La charge sur ce plancher est de : ${load.toFixed(2)} kN/m²`;
+        }
+
+        function calculateLiveLoad() {
+            const usageValues = {
+                'hebergement_chambres': 1.5,
+                'hebergement_collectif': 2.5,
+                'restaurants_cafes_cantines': 2.5,
+                'bureaux_proprement_dits': 2.5,
+                'salles_reunion_travail': 2.5,
+                'halles_divers': 4.0,
+                'salles_exposition_moins_50': 2.5,
+                'salles_exposition_50_plus': 3.5,
+                'salles_reunion_assistance_debout': 5.0,
+                'salles_tribunes_places_debout': 6.0,
+                'salles_theatre_conference': 4.0,
+                'cuisines_collectivites': 2.5,
+                'salles_lecture_bibliotheques': 4.0,
+                'salles_danse': 5.0,
+                'boutiques_annexes': 5.0,
+                'garages_parcs_stationnement': 2.5,
+                'logement_combles': 1.5,
+                'balcons': 3.5,
+                'escaliers_hall_entree': 2.5,
+                'combles_non_amenageables_plancher': 1.0,
+                'combles_non_amenageables_sans_plancher': 1.0,
+                'entretien_element_structure': 1.0,
+                'grenier': 2.5,
+                'etages_caves': 2.5,
+                'bureaux_paysagers': 3.5,
+                'circulations_escaliers': 2.5,
+                'halls_reception': 2.5,
+                'halls_guichet': 4.0,
+                'salles_projection': 3.5,
+                'cantines': 3.5,
+                'salles_reunion_tables': 2.5,
+                'zone_depots': 3.5,
+                'salles_ordinateurs': 3.5,
+                'salles_classe': 2.5,
+                'amphitheatres': 3.5,
+                'ateliers_laboratoires': 2.5,
+                'circulations_salles_reunion': 4.0,
+                'bibliotheques': 4.0,
+                'polyvalentes': 4.0,
+                'dortoir_collectif': 2.5,
+                'hebergement_individuel': 1.5,
+                'depots_lingerie': 3.5,
+                'locaux_hebergement_chambre': 1.5,
+                'locaux_hebergement_circulations': 2.5,
+                'salle_operations_platre': 3.5,
+                'salle_travail_obstetrique': 3.5,
+                'halls': 4.0,
+                'circulations_generales': 2.5,
+                'bureaux': 2.5,
+                'postes_personnel_soins': 2.5,
+                'salles_cours': 2.5,
+                'salles_reunion_restaurant': 3.5,
+                'locaux_surface_inferieure_50': 2.5,
+                'locaux_surface_superieure_100': 3.5,
+                'sanitaires': 5.0,
+                'cuisines': 5.0
+            };
+
+            const usage = document.getElementById('floor-usage').value;
+            const load = usageValues[usage];
+
+            let terraceLoad = 0;
+            if (document.getElementById('floor-level').value === 'terrasse') {
+                const terrace = document.getElementById('terrasse-accessible').value;
+                terraceLoad = terrace === 'accessible' ? 1.5 : 1.0;
+            }
+
+            document.getElementById('live-load-result').innerText = `La charge d'exploitation est de : ${(load + terraceLoad).toFixed(2)} kN/m²`;
+        }
+    </script>
+</body>
+</html>
